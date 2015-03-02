@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <set>
 #include "inputer.h"
 #define ERR -1
 using namespace std;
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
     int maxp=0;
     vector<int> wrongp;
     vector<int> emptyp;
+	set<int> solved;
 
     int pre = 0;
     while( 1 )
@@ -89,6 +91,8 @@ REDO:
                 emptyp.push_back(prevNum);
                 goto REDO;
             }
+			else
+				probNum = prevNum;
         }
 
         bool error = false;
@@ -158,6 +162,10 @@ REDO:
         {
             if(verb)cout << "\tok" << endl;
             count++;
+			
+			// .second==false if element already existed
+			if( solved.insert(probNum).second==false )
+				printf("problem %d already solved before\n" , probNum );
         }
         else
         {
